@@ -67,4 +67,14 @@ public class AccountTest {
         assertThat(account.balance()).isEqualTo(6);
     }
 
+    @Test
+    public void transferMoneyBetweenAccounts() throws IllegalDepositAmount, IllegalWithdrawAmount {
+        Account account1 = new Account();
+        Account account2 = new Account();
+        account1.deposit(10);
+        account1.withdraw(2);
+        account2.deposit(2);
+        assertThat(account1.balance()).isEqualTo(8);
+        assertThat(account2.balance()).isEqualTo(2);
+    }
 }
