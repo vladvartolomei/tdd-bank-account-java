@@ -26,5 +26,6 @@ public class Account {
     public void withdraw(double withdrawAmount) throws IllegalWithdrawAmount {
         if ( balance < withdrawAmount)
             throw new IllegalWithdrawAmount("Cannot withdraw any money! Insufficient balance!");
+        balance -=withdrawAmount;
     }
 }

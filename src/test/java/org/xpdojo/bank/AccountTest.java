@@ -48,7 +48,7 @@ public class AccountTest {
         assertThat(exception.getMessage()).isEqualTo("Cannot deposit negative amount! Use withdrawal for that!");
     }
 
-    @Test()
+    @Test
     public void refuseWithdrawlIfBalanceIsInsufficient(){
 
         Exception exception = Assertions.assertThrows(IllegalWithdrawAmount.class, () -> {
@@ -57,6 +57,14 @@ public class AccountTest {
         });
 
         assertThat(exception.getMessage()).isEqualTo("Cannot withdraw any money! Insufficient balance!");
+    }
+
+    @Test
+    public void withdrawAmount() throws IllegalDepositAmount, IllegalWithdrawAmount {
+        Account account = new Account();
+        account.deposit(10);
+        account.withdraw(4);
+        assertThat(account.balance()).isEqualTo(6);
     }
 
 }
