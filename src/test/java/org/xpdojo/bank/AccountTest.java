@@ -30,7 +30,7 @@ public class AccountTest {
     }
 
     @Test()
-    public void withdrawAmountToDecreaseExistingBalance(){
+    public void refuseWithdrawlIfBalanceIsInsufficient(){
 
         Exception exception = Assertions.assertThrows(IllegalWithdrawAmount.class, () -> {
             Account account = new Account();
@@ -39,4 +39,5 @@ public class AccountTest {
 
         assertThat(exception.getMessage()).isEqualTo("Cannot withdraw any money! Insufficient balance!");
     }
+
 }
