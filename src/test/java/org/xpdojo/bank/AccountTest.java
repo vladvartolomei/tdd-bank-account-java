@@ -1,6 +1,8 @@
 package org.xpdojo.bank;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.xpdojo.bank.exceptions.IllegalWithdrawAmount;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -25,5 +27,16 @@ public class AccountTest {
         Account account = new Account();
         account.deposit(10.5d);
         assertThat(account.balance()).isEqualTo(10.5d);
+    }
+
+    @Test()
+    public void withdrawAmountToDecreaseExistingBalance(){
+
+        Exception exception = Assertions.assertThrows(IllegalWithdrawAmount.class, () -> {
+            Account account = new Account();
+            account.withdraw(10);
+        });
+
+        assertThat(exception.getMessage()).isEqualTo("Cannot withdraw any money! Insufficient balance!");
     }
 }
