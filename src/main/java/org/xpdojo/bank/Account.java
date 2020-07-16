@@ -28,4 +28,9 @@ public class Account {
             throw new IllegalWithdrawAmount("Cannot withdraw any money! Insufficient balance!");
         balance -=withdrawAmount;
     }
+
+    public void transfer ( int amount, Account otherAccount) throws IllegalWithdrawAmount, IllegalDepositAmount {
+        this.withdraw(amount);
+        otherAccount.deposit(amount);
+    }
 }
