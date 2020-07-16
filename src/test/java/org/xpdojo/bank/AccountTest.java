@@ -1,6 +1,5 @@
 package org.xpdojo.bank;
 
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -19,5 +18,12 @@ public class AccountTest {
         account.deposit(10);
         account.deposit(30);
         assertThat(account.balance()).isEqualTo(40);
+    }
+
+    @Test
+    public void depositFractionalAmountsToIncreaseExistingBalance(){
+        Account account = new Account();
+        account.deposit(10.5d);
+        assertThat(account.balance()).isEqualTo(10.5d);
     }
 }
