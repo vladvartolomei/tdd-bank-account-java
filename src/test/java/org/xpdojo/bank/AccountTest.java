@@ -2,6 +2,7 @@ package org.xpdojo.bank;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.xpdojo.bank.exceptions.IllegalDepositAmount;
 import org.xpdojo.bank.exceptions.IllegalWithdrawAmount;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -15,7 +16,7 @@ public class AccountTest {
     }
 
     @Test
-    public void depositAmountsToIncreaseExistingBalance(){
+    public void depositAmountsToIncreaseExistingBalance() throws IllegalDepositAmount{
         Account account = new Account();
         account.deposit(10);
         account.deposit(30);
@@ -23,10 +24,28 @@ public class AccountTest {
     }
 
     @Test
-    public void depositFractionalAmountsToIncreaseExistingBalance(){
+    public void depositFractionalAmountsToIncreaseExistingBalance() throws IllegalDepositAmount {
         Account account = new Account();
         account.deposit(10.5d);
         assertThat(account.balance()).isEqualTo(10.5d);
+    }
+
+    @Test
+    public void depositNegativeAmountsIsRefused(){
+        Exception exception = Assertions.assertThrows(IllegalDepositAmount.class, () -> {
+            Account account = new Account();
+            account.deposit(-10);
+        });
+        assertThat(exception.getMessage()).isEqualTo("Cannot deposit negative amount! Use withdrawal for that!");
+    }
+
+    @Test
+    public void depositFractionalNegativeAmountsIsRefused(){
+        Exception exception = Assertions.assertThrows(IllegalDepositAmount.class, () -> {
+            Account account = new Account();
+            account.deposit(-10.5d);
+        });
+        assertThat(exception.getMessage()).isEqualTo("Cannot deposit negative amount! Use withdrawal for that!");
     }
 
     @Test()

@@ -1,5 +1,6 @@
 package org.xpdojo.bank;
 
+import org.xpdojo.bank.exceptions.IllegalDepositAmount;
 import org.xpdojo.bank.exceptions.IllegalWithdrawAmount;
 
 import javax.naming.InsufficientResourcesException;
@@ -10,11 +11,15 @@ public class Account {
         return balance;
     }
 
-    public void deposit(int depositedAmount) {
+    public void deposit(int depositedAmount) throws IllegalDepositAmount {
+        if ( depositedAmount < 0)
+            throw new IllegalDepositAmount("Cannot deposit negative amount! Use withdrawal for that!");
         balance += depositedAmount;
     }
 
-    public void deposit(double depositedAmount) {
+    public void deposit(double depositedAmount) throws IllegalDepositAmount {
+        if ( depositedAmount < 0)
+            throw new IllegalDepositAmount("Cannot deposit negative amount! Use withdrawal for that!");
         balance += depositedAmount;
     }
 
